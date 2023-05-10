@@ -1,0 +1,23 @@
+.row{
+    padding: 20px;
+}
+
+h3,h4{
+    display: inline;  
+}
+
+h3{
+    font-family: 'Rubik', sans-serif;
+}
+#educacion{
+    font-family: 'Rubik', sans-serif;
+}
+#titulo{
+    font-family: 'Rubik', sans-serif;
+}
+#año{
+    font-family: 'Rubik', sans-serif;
+}
+p{
+    font-family: 'Rubik', sans-serif;
+}
