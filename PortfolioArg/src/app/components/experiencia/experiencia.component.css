@@ -1,0 +1,23 @@
+.row{
+    padding: 20px;
+}
+
+h3{
+    display: inline;  
+}
+
+#experiencia{
+    font-family: 'Rubik', sans-serif;
+}
+
+#trabajo{
+    font-family: 'Rubik', sans-serif;
+}
+
+#años{
+    font-family: 'Rubik', sans-serif;
+}
+
+p{
+    font-family: 'Rubik', sans-serif;
+}
