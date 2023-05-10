@@ -1,0 +1,68 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+  }
+
+  div {
+    background-color: white;
+    text-align: center;
+  }
+  
+  .col-xs-12,
+  .col-sm-2,
+  .col-md-2,
+  .col-lg-2 {
+    flex: 1;
+  }
+  
+  .col-xs-12 {
+    text-align: left;
+  }
+  
+  .texto1,
+  .texto2 {
+    text-align: left;
+  }
+  #texto1{font-family: 'Rubik', sans-serif;}
+  #texto2{font-family: 'Rubik', sans-serif;}
+  
+  #nombre1 {
+    font-weight: bold;
+    margin-top: 10px; /* Ajusta el margen superior según tus necesidades */
+    border-right: 85%;
+    font-family: 'Rubik', sans-serif;
+  }
+  
+  #nombre2 {
+    margin-top: 10px; /* Ajusta el margen superior según tus necesidades */
+    border-right: 85%;
+    font-family: 'Rubik', sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    display: inline;
+  }
+  
+  @media (min-width: 576px) {
+    #fotoperfil {
+      position: static;
+      width: 50%;
+      border-radius: 100%;
+      box-shadow: 3px 3px 3px gray;
+      margin-right: 10px;
+      margin-top: -50px; /* Ajusta el margen superior negativo para subir la imagen */
+    }
+  }
+  
+  @media (max-width: 575px) {
+    #fotoperfil {
+      position: static;
+      width: 30%;
+      margin-right: 10px;
+      margin-top: -50px; /* Ajusta el margen superior negativo para subir la imagen */
+    }
+  }
+  
+  
