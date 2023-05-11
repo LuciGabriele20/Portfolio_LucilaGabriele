@@ -1,0 +1,36 @@
+.row{
+    padding: 20px;
+}
+.container{
+    width: auto;
+}
+h4{
+    display: inline;
+}
+.parte1, .parte2{
+    display: inline-block;
+    text-align: justify;
+}
+.img-proyecto{
+    box-shadow: 10px 10px 5px grey;
+    box-shadow: ejeX ejeY difumasion color;
+    width: 28%;
+    float: right;
+    display: inline;
+}
+#experiencia{
+    font-family: 'Rubik', sans-serif;
+}
+
+#proyecto{
+    font-family: 'Rubik', sans-serif;
+}
+#portfolio{
+    font-family: 'Rubik', sans-serif;
+}
+#fecha{
+    font-family: 'Rubik', sans-serif;
+}
+p{
+    font-family: 'Rubik', sans-serif;
+}
