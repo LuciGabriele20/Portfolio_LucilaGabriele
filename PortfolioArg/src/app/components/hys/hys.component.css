@@ -1,0 +1,11 @@
+.row{
+    padding: 20px;
+}
+
+div{
+    font-family: 'Rubik', sans-serif;
+}
+
+.circles-container{
+    display: inline-flex;
+}
