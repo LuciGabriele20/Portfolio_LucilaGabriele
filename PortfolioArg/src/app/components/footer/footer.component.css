@@ -1,0 +1,18 @@
+
+footer {
+    background-color: #e635a2;
+    font-family: 'Rubik', sans-serif;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    text-align: center;
+}
+
+p {
+    font-family: 'Rubik', sans-serif;
+    color: #e9d947;
+    box-shadow: 2px 2px 5px rgb(173, 22, 105);
+}
+
