@@ -2,21 +2,21 @@
     padding: 20px;
 }
 .container{
-    width: auto;
+    width:auto;
 }
 h4{
     display: inline;
 }
 .parte1, .parte2{
-    display: inline-block;
+    display: inline;
     text-align: justify;
 }
 .img-proyecto{
     box-shadow: 10px 10px 5px grey;
     box-shadow: ejeX ejeY difumasion color;
-    width: 28%;
+    width: 37%;
     float: right;
-    display: inline;
+    margin-left: 10px;
 }
 #experiencia{
     font-family: 'Rubik', sans-serif;
