@@ -1,58 +1,58 @@
+import { Token } from "@angular/compiler";
 import { Injectable } from "@angular/core";
 
-const TOKEN_KEY='AuthToken';
-const USERNAME_KEY='AuthUsername';
-const AUTHORITIES_KEY= 'Authorities';
+const TOKEN_KEY = 'AuthToken';
+const USERNAME_KEY = 'AuthUsername';
+const AUTHORITIES_KEY = 'Authorities';
 
-@Injectable{[
-    providedIn:'root'
-]}
+// @Injectable{
+//     [
+//         providedIn: 'root'
+//     ]
+// }
 
-export class TokenService{
-    roles:Array<string>=[];
-  
-    constructor(){}
+export class TokenService {
+    roles: Array<string> = [];
 
-    public setToken(token: string): void{
+    constructor() { }
+
+    public setToken(token: string): void {
         window.sessionStorage.removeItem(TOKEN_KEY);
-        window.sessionStorage.setItem(TOKEN_KEY,token);
+        window.sessionStorage.setItem(TOKEN_KEY, token);
     }
 
-    public getToken():string{
-        return sessionStorage.getItem(TOKEN_KEY)!;
-    }
-    
-    public getToken(): string{
+    public getToken(): string {
         return sessionStorage.getItem(TOKEN_KEY)!;
     }
 
-    public setUserName(username: string): void{
+    public setUserName(username: string): void {
         window.sessionStorage.removeItem(USERNAME_KEY);
-        window.sessionStorage.setItem(USERNAME_KEY, token);
+        window.sessionStorage.setItem(USERNAME_KEY, username);
+    }
+    token(USERNAME_KEY: string, token: any) {
+        throw new Error("Method not implemented.");
     }
 
-     public getUserName():string{
+    public getUserName(): string {
         return sessionStorage.getItem(USERNAME_KEY)!;
-     }
+    }
 
-     public setAuthorities(authorities :string[]):void{
+    public setAuthorities(authorities: string[]): void {
         window.sessionStorage.removeItem(AUTHORITIES_KEY);
         window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
-     }
-
-    public getAuthorities(): string[]{
-        this.roles=[];
-        if(sessionStorage.getItem(AUTHORITIES_KEY)){
-           JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)!).forEach((authority:any) =>{
-               this.roles.push(authority.authority);
-           }};
-        }
-       return this.roles;
     }
-    
-    public logOut():void{
+
+    public getAuthorities() {
+        this.roles = [];
+        if (sessionStorage.getItem(AUTHORITIES_KEY)) {
+            JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)!).forEach((authority: any) => {
+                this.roles.push(authority.authority);
+            });
+        }
+        return this.roles;
+    }
+
+    public logOut(): void {
         window.sessionStorage.clear();
     }
 }
-
-

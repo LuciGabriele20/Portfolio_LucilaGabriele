@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { TokenService } from 'src/app/service/token.service';
 
 @Component({
@@ -8,23 +8,23 @@ import { TokenService } from 'src/app/service/token.service';
   styleUrls: ['./logoarg.component.css']
 })
 export class LogoargComponent implements OnInit {
-  isLogged=false;
+  isLogged = false;
+  tokenService: any;
 
-    constructor(private router:Router) {}
-    ngOnInit(): void {
-      if(this.tokenService.getToken()){
-        this.isLogged=true;
-      }else{
-        this.isLogged=false;
-      }
+  constructor(private router: Router) { }
+  ngOnInit(): void {
+    if (this.tokenService.getToken()) {
+      this.isLogged = true;
+    } else {
+      this.isLogged = false;
     }
-      onLogOut():void{
-        this.tokenService.logOut();
-        window.location.reload();
-      }
+  }
+  onLogOut(): void {
+    this.tokenService.logOut();
+    window.location.reload();
+  }
 
-       login(){
-        this.router.navigate(['/login'])
-       }
-      }
+  login() {
+    this.router.navigate(['/login'])
+  }
 }

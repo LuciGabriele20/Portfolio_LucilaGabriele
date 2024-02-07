@@ -1,6 +1,5 @@
-import { NgModule, importProvidersFrom } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -14,9 +13,9 @@ import { HysComponent } from './components/hys/hys.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ProyectoComponent } from './components/proyecto/proyecto.component';
 import { FooterComponent } from './components/footer/footer.component';
-import {HttpClient, HttpClientModule}  from  '@angular/common/http';
-import { interceptorProvider } from './service/interceptor-service';
-import { interceptorProvider } from './service/interceptor-service';
+import { HttpClientModule}  from  '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,9 @@ import { interceptorProvider } from './service/interceptor-service';
     EducacionComponent,
     HysComponent,
     ProyectoComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +39,7 @@ import { interceptorProvider } from './service/interceptor-service';
     NgCircleProgressModule.forRoot({}),
     HttpClientModule
   ],
-  providers: [interceptorProvider],
+  // providers: [interceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
