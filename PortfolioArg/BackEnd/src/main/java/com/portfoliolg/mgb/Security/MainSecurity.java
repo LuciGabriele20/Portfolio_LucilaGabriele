@@ -11,11 +11,15 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.context.annotation.Configuration;
 
 import com.portfoliolg.mgb.Security.JWT.JwtEntryPoint;
+import com.portfoliolg.mgb.Security.JWT.JwtTokenFilter;
+import com.portfoliolg.mgb.Security.Service.UserDetailsImp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 import org.springframework.security.config.http.SessionCreationPolicy;
-
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
@@ -24,13 +28,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class MainSecurity {
      @Autowired
-     UserDetailsImpl userDetailsServicesImpl;
+     UserDetailsImp userDetailsServicesImpl;
      @Autowired
      JwtEntryPoint jwtEntryPoint;
      
      @Bean
-     public JWTokenFilter jwtTokenFilter(){
-         return new JWTokenFilter();
+     public JwtTokenFilter jwtTokenFilter(){
+         return new JwtTokenFilter();
      }
      
      @Bean

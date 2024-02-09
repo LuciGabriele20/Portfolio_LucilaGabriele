@@ -1,5 +1,6 @@
 package com.portfoliolg.mgb.Security.Controller;
 
+import com.portfoliolg.mgb.Security.Dto.JwDto;
 import com.portfoliolg.mgb.Security.Dto.LoginUsuario;
 import com.portfoliolg.mgb.Security.Dto.NuevoUsuario;
 import com.portfoliolg.mgb.Security.Entity.Rol;
@@ -48,27 +49,27 @@ public class AuthController {
         if (bindingResult.hasErrors()) 
             return new ResponseEntity(new Mensaje("Campo mal posicionado o email inválido"), HttpStatus.BAD_REQUEST);
       
-        if (usuarioService.existsByNombreUsuario(nombreUsuario.getNombreUsuario())) 
+        if (usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario())) 
             return new ResponseEntity(new Mensaje("Usuario Existente"), HttpStatus.BAD_REQUEST); 
   
-        if(usuarioService.existsByEmail (nombreUsuario.getEmail()))               
+        if(usuarioService.existsByEmail (nuevoUsuario.getEmail()))               
             return new ResponseEntity(new Mensaje("Mail existente"),HttpStatus.BAD_REQUEST);
          
         Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
                 nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
           
          Set<Rol> roles = new HashSet<>();
-          roles .add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
+          roles .add(reolService.getByRolNombre(RolNombre.ROLE_USER).get());
    
         if(nuevoUsuario.getRoles().contains("admin"))
-           roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
+           roles.add(reolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
              usuario.setRoles(roles); 
              usuarioService.save(usuario);
 
           return new ResponseEntity(new Mensaje("Usuario guardado"),HttpStatus.CREATED);
   }
      @PostMapping("/login")
-       public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario,BindingResult bindingResult){
+       public ResponseEntity<JwDto> login(@Valid @RequestBody LoginUsuario loginUsuario,BindingResult bindingResult){
             if(bindingResult.hasErrors()) 
             return new ResponseEntity(new Mensaje("Campo mal ubicado"),HttpStatus.BAD_REQUEST);
             
@@ -77,11 +78,11 @@ public class AuthController {
     
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt= jwtProvider.generateToken(authentication);
+        String jwt= jwtProvider.generatedToken(authentication);
         
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        JwtDto jwtDto= new JwtDto(jwt, userDetails.getUsername(),userDetails.getAuthorities());
+        JwDto jwtDto= new JwDto(jwt, userDetails.getUsername(),userDetails.getAuthorities());
 
         return new ResponseEntity(jwtDto,HttpStatus.OK);
    }

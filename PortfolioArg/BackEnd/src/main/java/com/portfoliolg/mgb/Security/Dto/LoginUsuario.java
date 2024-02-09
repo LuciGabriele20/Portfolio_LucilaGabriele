@@ -26,5 +26,10 @@ public class LoginUsuario {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getEmail() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEmail'");
+    }
     
 }

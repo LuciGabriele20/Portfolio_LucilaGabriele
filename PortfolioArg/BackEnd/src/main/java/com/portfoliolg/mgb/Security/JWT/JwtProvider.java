@@ -1,13 +1,18 @@
 package com.portfoliolg.mgb.Security.JWT;
 
 import com.portfoliolg.mgb.Security.Entity.UsuarioPrincipal;
-import com.sun.org.apache.xml.internal.security.algorithms.SignatureAlgorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import sun.util.calendar.BaseCalendar.Date;
+import java.util.Date;
+import java.security.Key;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtProvider {
@@ -20,11 +25,13 @@ public class JwtProvider {
         
         public String generatedToken(Authentication authentication){
             UsuarioPrincipal usuarioPrincipal =(UsuarioPrincipal) authentication.getPrincipal();
-       return Jwts.builder().setSubject(usuarioPrincipal.getUsername())
-               .setIssueAt(new Date())
+               // Generar una clave secreta aleatoria para HS256
+            Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+            return Jwts.builder().setSubject(usuarioPrincipal.getUsername())
+               .setIssuedAt(new Date())
                .setExpiration(new Date(new Date().getTime()+expiration*1000))
-               .signWith(SignatureAlgorithm.HS512, secret)
-               .compact();  
+               .signWith(secretKey, SignatureAlgorithm.HS256)
+                .compact();
         }
         
         public String getNombreUsuarioFromToken(String token){
@@ -40,7 +47,7 @@ public class JwtProvider {
                logger.error("Token mal formado");
            }catch(ExpiredException e ){
                logger.error("Token mal formado");  
-           }catch (IlegalArgumentExcepption e){
+           }catch (IlegalArgumentException e){
               logger.error("Token vacio");  
            }catch (SignatureExcepption e){
               logger.error("Token no valida");
