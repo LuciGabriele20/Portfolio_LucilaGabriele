@@ -8,11 +8,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.security.Key;
+
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
+import java.security.SignatureException;
+
 
 @Component
 public class JwtProvider {
@@ -34,24 +38,24 @@ public class JwtProvider {
                 .compact();
         }
         
-        public String getNombreUsuarioFromToken(String token){
-            return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
-        }
+        public String getNombreUsuarioFromToken(String token) {
+            return Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody().getSubject();
+        }        
        public boolean validateToken(String token){
            try{
-               Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+               Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token);
                return true;
            }catch (MalformedJwtException e){
                logger.error("Token mal formado");
            }catch(UnsupportedJwtException e ){
                logger.error("Token mal formado");
-           }catch(ExpiredException e ){
+           }catch (ExpiredJwtException e){
                logger.error("Token mal formado");  
-           }catch (IlegalArgumentException e){
+           }catch (IllegalArgumentException e){
               logger.error("Token vacio");  
-           }catch (SignatureExcepption e){
+           }catch (SignatureException e){
               logger.error("Token no valida");
-       }
+           }
            return false;
      }
   }

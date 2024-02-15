@@ -46,15 +46,15 @@ public class AuthController {
 
     @PostMapping("/nuevo")
     public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) 
-            return new ResponseEntity(new Mensaje("Campo mal posicionado o email inválido"), HttpStatus.BAD_REQUEST);
-      
-        if (usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario())) 
-            return new ResponseEntity(new Mensaje("Usuario Existente"), HttpStatus.BAD_REQUEST); 
+      if (bindingResult.hasErrors()) {
+        return new ResponseEntity<>(new Mensaje("Campo mal posicionado o email inválido"), HttpStatus.BAD_REQUEST);
   
-        if(usuarioService.existsByEmail (nuevoUsuario.getEmail()))               
-            return new ResponseEntity(new Mensaje("Mail existente"),HttpStatus.BAD_REQUEST);
-         
+      if (usuarioService.existsByNombreUsuario(nuevoUsuario.getNombreUsuario())) 
+          return new ResponseEntity<>(new Mensaje("Usuario Existente"), HttpStatus.BAD_REQUEST); 
+  
+      if (usuarioService.existsByEmail(nuevoUsuario.getEmail())) {
+        return new ResponseEntity<>(new Mensaje("Mail existente"), HttpStatus.BAD_REQUEST);
+            
         Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getNombreUsuario(),
                 nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
           
@@ -66,14 +66,15 @@ public class AuthController {
              usuario.setRoles(roles); 
              usuarioService.save(usuario);
 
-          return new ResponseEntity(new Mensaje("Usuario guardado"),HttpStatus.CREATED);
-  }
+          return new ResponseEntity<>(new Mensaje("Usuario guardado"),HttpStatus.CREATED);
+ 
+}
      @PostMapping("/login")
-       public ResponseEntity<JwDto> login(@Valid @RequestBody LoginUsuario loginUsuario,BindingResult bindingResult){
-            if(bindingResult.hasErrors()) 
-            return new ResponseEntity(new Mensaje("Campo mal ubicado"),HttpStatus.BAD_REQUEST);
-            
-       Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+     public ResponseEntity<?> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
+      if (bindingResult.hasErrors()) {
+          return new ResponseEntity<>(new Mensaje("Campo mal ubicado"), HttpStatus.BAD_REQUEST);
+      }
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
          loginUsuario.getNombreUsuario(), loginUsuario.getPassword()));
     
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -84,6 +85,7 @@ public class AuthController {
 
         JwDto jwtDto= new JwDto(jwt, userDetails.getUsername(),userDetails.getAuthorities());
 
-        return new ResponseEntity(jwtDto,HttpStatus.OK);
+        return new ResponseEntity<>(jwtDto,HttpStatus.OK);
    }
-} //ctrl+shift+i para actualizar/activar la clase mensaje
+}
+ //ctrl+shift+i para actualizar/activar la clase mensaje
