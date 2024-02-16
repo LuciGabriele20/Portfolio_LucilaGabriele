@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.portfoliolg.mgb.Security.Service.UserDetailsImp;
+
 
 
 public class JwtTokenFilter extends OncePerRequestFilter{
@@ -20,11 +22,11 @@ public class JwtTokenFilter extends OncePerRequestFilter{
    @Autowired
    JwtProvider jwtProvider;
    @Autowired
-   UserDetailsImpl userDetailsServiceImpl;
+   UserDetailsImp userDetailsServiceImpl;
    
    @Override
-   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-throw try{
+   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain){
+       try{
        String token = getToken(request);
        if(token != null && jwtProvider.validateToken(token)){
        String nombreUsuario = jwtProvider.getNombreUsuarioFromToken(token);
@@ -35,6 +37,7 @@ throw try{
    }catch (Exception e){
         logger.error("Falló metodo doFilterInternal");        
       }
+   }
    private String getToken(HttpServletRequest request){
        String header = request.getHeader("Authorization");
        if(header != null && header.startsWith("Bearer"))

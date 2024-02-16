@@ -40,7 +40,9 @@ public class JwtProvider {
         
         public String getNombreUsuarioFromToken(String token) {
             return Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token).getBody().getSubject();
-        }        
+        }   
+        
+        
        public boolean validateToken(String token){
            try{
                Jwts.parserBuilder().setSigningKey(secret).build().parseClaimsJws(token);

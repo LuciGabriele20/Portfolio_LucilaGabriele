@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,13 +20,15 @@ import com.portfoliolg.mgb.Security.Service.UserDetailsImp;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
+@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 
-public class MainSecurity {
+
+public class MainSecurity extends WebSecurityConfigurerAdapter {
      @Autowired
-     UserDetailsImp userDetailsServicesImpl;
+     UserDetailsImp userDetailsServicesImp;
      @Autowired
      JwtEntryPoint jwtEntryPoint;
     @Bean
@@ -38,7 +41,7 @@ public class MainSecurity {
     }
  
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception{
         http.cors().and().csrf().disable().authorizeRequests().antMatchers("/auth/").permitAll().anyRequest().authenticated()
         .and().exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
         .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -53,6 +56,6 @@ public class MainSecurity {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsServicesImp).passwordEncoder(passwordEncoder());
     }
 }
